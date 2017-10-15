@@ -93,6 +93,7 @@ class FunctionalTest(TestCase):
         link.click()
         new_correo = 'jd.patino2@uniandes.edu.co'
         correo = self.browser.find_element_by_id('id_correo')
+        correo.clear()
         correo.send_keys(new_correo)
         update = self.browser.find_element_by_id('id_update')
         update.click()
@@ -117,5 +118,4 @@ class FunctionalTest(TestCase):
         boton.click()
         self.browser.implicitly_wait(5)
         buscar_Correo = self.browser.find_element_by_name("david@gmail.com")
-        print (buscar_Correo.text)
         self.assertIn('david@gmail.com', buscar_Correo.text)
