@@ -64,14 +64,18 @@ class FunctionalTest(TestCase):
         self.assertIn('Juan Daniel Arevalo', h2.text)
 
     def test_login_independiente(self):
-        self.browser.get('http://localhost:8000/login')
-        nombreUsuario = self.browser.find_element_by_id('id_username')
+        self.browser.get('http://localhost:8000')
+        link = self.browser.find_element_by_id('id_login')
+        link.click()
+        nombreUsuario = self.browser.find_element_by_id('id_username_1')
         nombreUsuario.send_keys('juan645')
-        clave = self.browser.find_element_by_id('id_password')
+        clave = self.browser.find_element_by_id('id_password_1')
         clave.send_keys('clave123')
-        botonLogin = self.browser.find_element_by_id('id_login')
+        botonLogin = self.browser.find_element_by_id('id_login_submmit')
         botonLogin.click()
-        self.assertIn('Bienvenido Juan Daniel Arevalo', self.browser.title)
+        self.browser.implicitly_wait(3)
+        editar_element = self.browser.find_element_by_id('id_editar')
 
+        self.assertIn("Editar", editar_element.text)
 
 
