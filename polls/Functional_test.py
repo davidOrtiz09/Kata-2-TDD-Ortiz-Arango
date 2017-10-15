@@ -78,20 +78,27 @@ class FunctionalTest(TestCase):
 
         self.assertIn("Editar", editar_element.text)
 
-        def test_edit_user(self):
-            self.browser.get('http://localhost:8000')
-            link = self.browser.find_element_by_id('id_editar')
-            link.click()
-            new_correo = 'jd.patino2@uniandes.edu.co'
-            correo = self.browser.find_element_by_id('id_correo')
-            correo.send_keys(new_correo)
-            update = self.browser.find_element_by_id('id_update')
-            update.click()
+    def test_edit_user(self):
+        self.browser.get('http://localhost:8000')
+        link = self.browser.find_element_by_id('id_login')
+        link.click()
+        nombreUsuario = self.browser.find_element_by_id('id_username_1')
+        nombreUsuario.send_keys('juan645')
+        clave = self.browser.find_element_by_id('id_password_1')
+        clave.send_keys('clave123')
+        botonLogin = self.browser.find_element_by_id('id_login_submmit')
+        botonLogin.click()
+        self.browser.implicitly_wait(5)
+        link = self.browser.find_element_by_id('id_editar')
+        link.click()
+        new_correo = 'jd.patino2@uniandes.edu.co'
+        correo = self.browser.find_element_by_id('id_correo')
+        correo.send_keys(new_correo)
+        update = self.browser.find_element_by_id('id_update')
+        update.click()
 
-            self.browser.implicitly_wait(5)
-
-            correo2 = self.browser.find_element_by_id('id_correo')
-
-            self.assertIn(correo2.text, new_correo)
+        self.browser.implicitly_wait(5)
+        correo2 = self.browser.find_element_by_id('id_correo')
+        self.assertIn(correo2.text, new_correo)
 
 

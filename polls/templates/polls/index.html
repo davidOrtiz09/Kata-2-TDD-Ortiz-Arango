@@ -43,17 +43,6 @@
     <h1>Busco Ayuda</h1>
     <p>Encuentra aquí la ayuda que necesitas.</p>
 </div>
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert {{ message.tags }} float-message">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}<strong>ERROR: </strong> {% endif %}
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}<strong>SUCCESS: </strong> {% endif %}
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}<strong>INFO: </strong> {% endif %}
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
 {% if not user.is_authenticated %}
     <form class="navbar-form navbar-right" role="search">
         <div class="input-group">
