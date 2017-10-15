@@ -3,11 +3,11 @@ from unittest import TestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-class FunctionalTest(TestCase):
 
+class FunctionalTest(TestCase):
     def setUp(self):
-        self.browser = webdriver.Firefox()
-        self.browser.implicitly_wait(2)
+        self.browser = webdriver.Chrome('/Users/davidortiz/Downloads/chromedriver')
+        self.browser.implicitly_wait(5)
 
     def tearDown(self):
         self.browser.quit()
@@ -30,7 +30,8 @@ class FunctionalTest(TestCase):
         experiencia = self.browser.find_element_by_id('id_aniosExperiencia')
         experiencia.send_keys('5')
 
-        self.browser.find_element_by_xpath("//select[@id='id_tiposDeServicio']/option[text()='Desarrollador Web']").click()
+        self.browser.find_element_by_xpath(
+            "//select[@id='id_tiposDeServicio']/option[text()='Desarrollador Web']").click()
         telefono = self.browser.find_element_by_id('id_telefono')
         telefono.send_keys('3173024578')
 
@@ -38,7 +39,7 @@ class FunctionalTest(TestCase):
         correo.send_keys('jd.patino1@uniandes.edu.co')
 
         imagen = self.browser.find_element_by_id('id_imagen')
-        imagen.send_keys('C:\Users\asistente\Desktop\developer.jpg')
+        imagen.send_keys('/Users/davidortiz/Downloads/1069335_10201430825270099_1021007166_n.jpg')
 
         nombreUsuario = self.browser.find_element_by_id('id_username')
         nombreUsuario.send_keys('juan645')
@@ -49,15 +50,28 @@ class FunctionalTest(TestCase):
         botonGrabar = self.browser.find_element_by_id('id_grabar')
         botonGrabar.click()
         self.browser.implicitly_wait(3)
-        span=self.browser.find_element(By.XPATH, '//span[text()="Juan Daniel Arevalo"]')
+        span = self.browser.find_element(By.XPATH, '//span[text()="Juan Daniel Arevalo"]')
 
         self.assertIn('Juan Daniel Arevalo', span.text)
 
     def test_verDetalle(self):
         self.browser.get('http://localhost:8000')
-        span=self.browser.find_element(By.XPATH, '//span[text()="Juan Daniel Arevalo"]')
+        span = self.browser.find_element(By.XPATH, '//span[text()="Juan Daniel Arevalo"]')
         span.click()
 
-        h2=self.browser.find_element(By.XPATH, '//h2[text()="Juan Daniel Arevalo"]')
+        h2 = self.browser.find_element(By.XPATH, '//h2[text()="Juan Daniel Arevalo"]')
 
         self.assertIn('Juan Daniel Arevalo', h2.text)
+
+    def test_login_independiente(self):
+        self.browser.get('http://localhost:8000/login')
+        nombreUsuario = self.browser.find_element_by_id('id_username')
+        nombreUsuario.send_keys('juan645')
+        clave = self.browser.find_element_by_id('id_password')
+        clave.send_keys('clave123')
+        botonLogin = self.browser.find_element_by_id('id_login')
+        botonLogin.click()
+        self.assertIn('Bienvenido Juan Daniel Arevalo', self.browser.title)
+
+
+

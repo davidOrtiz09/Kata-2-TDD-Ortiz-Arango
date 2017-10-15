@@ -2,4 +2,5 @@ venv
 *.pyc
 staticfiles
 environment.sh
+migrations
 .idea*
